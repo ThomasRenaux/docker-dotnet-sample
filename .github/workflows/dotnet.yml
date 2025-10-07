@@ -24,8 +24,16 @@ jobs:
       run: dotnet restore ./src/myWebApp.csproj
     - name: Build
       run: dotnet build ./src/myWebApp.csproj --configuration Release --no-restore
-    - name: Test
-      run: dotnet test ./src/myWebApp.csproj --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./TestResults
+    - name: Run tests
+      run: dotnet test --no-build --configuration Release --logger "trx;LogFileName=test-results.trx" --results-directory TestResults
+
+    - name: Publish test results
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: 'Test Results'
+        path: 'TestResults/*.trx'
+        reporter: dotnet-trx
     
 #    - name: Report test results
 #      uses: bibipkins/dotnet-test-reporter@v1.5.4
