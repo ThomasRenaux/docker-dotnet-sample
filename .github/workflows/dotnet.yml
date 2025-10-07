@@ -29,10 +29,17 @@ jobs:
 
 #Docker 
 
-    - name: Publish project 
-      run: dotnet publish ./src/myWebApp.csproj -c Release -o ./publish
-   
+    - name: Check for backend changes
+      id: changes
+      uses: dorny/paths-filter@v3
+      with:
+        filters: |
+         backend:
+            - 'src/**'
+            - '!**/*.md'
+
     - name: Log in to Docker Hub
+      if: steps.changes.outputs.backend == 'true'
       uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
