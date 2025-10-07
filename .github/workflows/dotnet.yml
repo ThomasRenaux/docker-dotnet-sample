@@ -24,8 +24,13 @@ jobs:
       run: dotnet restore ./src/myWebApp.csproj
     - name: Build
       run: dotnet build ./src/myWebApp.csproj --no-restore
-    - name: Test
-      run: dotnet test ./src/myWebApp.csproj --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+    - name: Test with coverage
+      run: |
+          dotnet test ./src/MyWebApp.Tests/MyWebApp.Tests.csproj \
+          --results-directory ./TestResults \
+          --collect:"XPlat Code Coverage" \
+          /p:CoverletOutput=./coverage/ \
+          /p:CoverletOutputFormat=cobertura
 
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
