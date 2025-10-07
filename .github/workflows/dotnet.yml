@@ -19,12 +19,10 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.
-        
+        dotnet-version: 8.0.x
     - name: Restore dependencies
-        run: dotnet restore ./src/myWebApp.csproj
-        
+      run: dotnet restore ./src/myWebApp.csproj
     - name: Build
       run: dotnet build ./src/myWebApp.csproj --no-restore
-    #- name: Test
-     # run: dotnet test ./src/MonProjet.Tests/MonProjet.Tests.csproj --no-build --verbosity normal
+    - name: Test
+      run: dotnet test ./src/myWebApp.csproj --no-build --verbosity normal
