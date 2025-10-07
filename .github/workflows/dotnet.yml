@@ -26,3 +26,8 @@ jobs:
       run: dotnet build ./src/myWebApp.csproj --no-restore
     - name: Test
       run: dotnet test ./src/myWebApp.csproj --no-build --verbosity normal
+
+#Docker 
+
+    - name: Publish project 
+      run: dotnet publish ./src/myWebApp.csproj -c Release -o ./publish
