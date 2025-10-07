@@ -45,7 +45,6 @@ jobs:
         filters: |
           backend:
             - 'src/**'
-            - '!**/*.md'
 
     - name: Log in to Docker Hub
       if: steps.changes.outputs.backend == 'true'
